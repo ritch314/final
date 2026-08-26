@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<title>for you</title>
+<meta name="description" content="A little something built for one person in particular." />
+<meta name="robots" content="noindex, nofollow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="bg-ambient" aria-hidden="true"></div>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<!-- ================= LOADER ================= -->
+<div id="loader" role="status" aria-live="polite">
+  <div class="loader-inner">
+    <div class="loader-lines" id="loaderLines"></div>
+    <div class="loader-bar-track"><div class="loader-bar-fill" id="loaderBar"></div></div>
+    <div class="loader-pct" id="loaderPct">0%</div>
+    <div class="loader-greet" id="loaderGreet">
+      <h2>Hey, <span id="greetName">you</span>.</h2>
+      <p>I made something for you, with all my heart. Every little detail and every bit of effort nako gi-butang ani kay you mean so much to me.
+        As a programmer, this is probably my way of saying what words sometimes can't.
+        I hope when you go through this, you can feel even a little bit of the effort, sincerity, and care I put into making it for you. 🤍</p>
+      <button class="btn btn-primary" id="openSiteBtn">Open It</button>
+    </div>
+  </div>
+</div>
+
+<div class="progress-rail" id="progressRail" aria-hidden="true"></div>
+
+<div class="music-toggle">
+  <button id="musicBtn" aria-pressed="false" aria-label="Toggle background music">
+    <span id="musicLabel">Music: OFF</span>
+  </button>
+</div>
+
+<main id="site" style="display:none;">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="sec-hero">
+    <div class="hero-code" aria-hidden="true">const distance = "far";
+const feelings = "real";
+
+if (youAreSpecial) {
+  keepTrying();
+}</div>
+    <p class="eyebrow">a website, not a text message</p>
+    <h1 class="headline">For the woman who's <em>miles away</em><span class="type-target" id="heroType"></span></h1>
+    <p class="lede">I could’ve just sent you a message, but as a programmer, 
+      I wanted to do something a little different. So instead of just saying how I feel, 
+      I decided to build something that could tell you for me. Kay ako na gud ni, Si Choy HAHAAHHAH. 
+      I guess this is my way of making something special for someone special. Which is you langga 🤍.</p>
+    <a href="#sec-why" class="btn btn-primary" style="margin-top:2rem;">Start Our Story <span aria-hidden="true">→</span></a>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= WHY I MADE THIS ================= -->
+  <section class="section section-narrow" id="sec-why">
+    <p class="eyebrow reveal">the reason</p>
+    <h2 class="headline reveal">Why did I make this?</h2>
+    <p class="lede reveal" style="max-width:60ch;">
+      Because you're far away d kasi ako basta basta maka punta dyan e. And while I know a website can't make the distance disappear,
+      I wanted to do something that could remind you that someone out here is willing to
+      make an effort just to make you smile, Pano yung smile langga? HAHHAHAHAH. Ang cute mo talaga e, nangigigil ako sayo.
+      <br><br>
+      I’m not here to rush what could be something beautiful, langga. 
+      I just want to know you slowly—the things that make you smile, 
+      the stories you want to tell, and the little things that make you, you.
+    </p>
+
+    <div class="distance-wrap reveal">
+      <div class="distance-track">
+        <div class="distance-line"><div class="ping" aria-hidden="true"></div></div>
+        <div class="node"><div class="node-dot"></div><span id="meLoc">Me</span></div>
+        <div class="node"><div class="node-dot"></div><span id="herLocLabel">You</span></div>
+      </div>
+      <p class="distance-caption">Different places. Same little corner of the internet.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= WHAT I LIKE ABOUT YOU ================= -->
+  <section class="section" id="sec-traits">
+    <p class="eyebrow reveal">what I've noticed</p>
+    <h2 class="headline reveal">A few things I've noticed about <em id="herNameInline1">you</em>...</h2>
+    <div class="grid grid-2" id="traitsGrid"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= TIMELINE ================= -->
+  <section class="section section-narrow" id="sec-timeline">
+    <p class="eyebrow reveal">a running log</p>
+    <h2 class="headline reveal">Little moments that stayed with me</h2>
+    <div class="timeline" id="timelineList"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= PROGRAMMER LOVE ================= -->
+  <section class="section" id="sec-code">
+    <p class="eyebrow reveal">since programmer man si Choy...</p>
+    <h2 class="headline reveal">I did what any reasonable developer would do.</h2>
+    <div class="terminal reveal" style="margin-top:2rem;">
+      <div class="terminal-bar">
+        <span class="terminal-dot" style="background:#ff5f56;"></span>
+        <span class="terminal-dot" style="background:#ffbd2e;"></span>
+        <span class="terminal-dot" style="background:#27c93f;"></span>
+        <span style="margin-left:.6rem; font-family:var(--font-mono); font-size:.75rem; color:var(--ink-faint);">feelings.js</span>
+      </div>
+      <div class="terminal-body" id="termOut1"></div>
+    </div>
+    <p class="reveal" style="margin-top:1.4rem; color:var(--ink-dim); font-style:italic;" id="afterCompile" hidden>Okay... maybe I should stop writing code about my feelings.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= DISTANCE ================= -->
+  <section class="section section-narrow" id="sec-distance">
+    <p class="eyebrow reveal">about the distance</p>
+    <h2 class="headline reveal">About the distance...</h2>
+    <p class="lede reveal" style="max-width:60ch;">
+      I know you're far away, bat kasi nandyan bahay nyo? d jk lang po. I know we can't simply meet whenever we want.
+      But I also believe distance can show us whether we're willing to make an effort.
+      I don't expect everything to be perfect — I just want to see where this could go.
+      Mag work man tayo o hindi atleast we tried dba. D ako nagsisisi na nakilala kita.
+      Hindi rin hadlang yung distance para kulitin at asarin kita. Sorry babyyy kung inaaway kita iloveyou po.
+    </p>
+    <div class="distance-wrap reveal">
+      <div class="distance-track">
+        <div class="distance-line"><div class="ping" aria-hidden="true"></div></div>
+        <div class="node"><div class="node-dot"></div><span id="meLoc2">Me</span></div>
+        <div class="node"><div class="node-dot"></div><span id="herLoc2">You</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= PROMISES ================= -->
+  <section class="section" id="sec-promises">
+    <p class="eyebrow reveal">what I can promise</p>
+    <h2 class="headline reveal">What I can promise</h2>
+    <div class="grid grid-2" id="promisesGrid"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= GALLERY ================= -->
+  <section class="section" id="sec-gallery">
+    <p class="eyebrow reveal">for keeping</p>
+    <h2 class="headline reveal">Things I'd like to remember</h2>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= GAME ================= -->
+  <section class="section section-narrow" id="sec-game">
+    <p class="eyebrow reveal">one little challenge</p>
+    <h2 class="headline reveal">Find the hidden heart.</h2>
+    <p class="lede reveal">Somewhere in the box below, there's one heart that isn't like the others.Find it.
+      Langga tarunga og pangita naa ra jud na dihaa sa sud sa box ang heart. Alam ko d malabo yung mata langga kaya hanapin mo ng mabuti</p>
+    <div class="game-area reveal" id="gameArea">
+      <span class="game-hint">click around...</span>
+    </div>
+    <p class="game-result" id="gameResult" aria-live="polite"></p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= CONFESSION ================= -->
+  <section class="section confession" id="sec-confession">
+    <p class="eyebrow reveal">no more hiding behind code</p>
+    <div id="confessionLines">
+      <p class="confession-line">Okay... here's the part where I stop hiding behind code.</p>
+      <p class="confession-line strong">I like you.</p>
+      <p class="confession-line">Not just because gusto mo rin ako.Pure yung intentions ko sayo.</p>
+      <p class="confession-line">I like talking to you. Kahit anong usapan pa yan langga</p>
+      <p class="confession-line">I like learning little things about you.</p>
+      <p class="confession-line">I like the way you make ordinary conversations feel special.</p>
+      <p class="confession-line strong">And I'd really like the chance to know you more.</p>
+      <p class="confession-line strong">So I have one question<span class="accent">...</span></p>
+    </div>
+  </section>
+
+  <!-- ================= MAIN QUESTION ================= -->
+  <section class="section question-section" id="sec-question">
+    <div class="screen active" id="screen-question">
+      <p class="eyebrow" style="justify-content:center;">the whole reason this exists</p>
+      <h2 class="question-headline">Would you let me court you?</h2>
+      <p class="lede" style="margin:0 auto;">No pressure. No expectations. I just wanted to ask you properly.</p>
+      <div class="question-buttons">
+        <button class="btn btn-primary" id="btnYes">YES</button>
+        <button class="btn" id="btnThink">Let me think</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-yes">
+      <p class="eyebrow" style="justify-content:center;">system message</p>
+      <h2 class="question-headline">Courtship initialized.</h2>
+      <div class="status-block">
+        <div class="row"><span>Courtship</span><span>STARTED</span></div>
+        <div class="row"><span>Distance</span><span>FAR</span></div>
+        <div class="row"><span>Effort</span><span>100%</span></div>
+        <div class="row"><span>Intentions</span><span>GENUINE</span></div>
+        <div class="row"><span>Communication</span><span>IMPORTANT</span></div>
+        <hr>
+        <div class="row"><span>Feelings</span><span>DEVELOPING...</span></div>
+      </div>
+      <p class="lede" style="margin:0 auto;">Thank you for giving me a chance. I promise I won't treat this as the finish line — it's just the beginning of getting to know each other.</p>
+      <div class="question-buttons"><a href="#sec-final" class="btn btn-primary">Start Our Next Chapter <span aria-hidden="true">→</span></a></div>
+    </div>
+
+    <div class="screen" id="screen-think">
+      <p class="eyebrow" style="justify-content:center;">also a very good answer</p>
+      <h2 class="question-headline">That's completely okay.</h2>
+      <p class="lede" style="margin:0 auto 0.4rem;">Take all the time you need.</p>
+      <p class="lede" style="margin:0 auto 0.4rem;">I didn't make this website to pressure you into an answer.</p>
+      <p class="lede" style="margin:0 auto 0.4rem;">I just wanted you to know how I feel — whatever your answer is, I'll respect it.</p>
+      <div class="question-buttons"><button class="btn" id="btnGoBack">Go Back</button></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= FINAL ================= -->
+  <section class="section" id="sec-final" style="text-align:center;">
+    <h2 class="headline reveal" style="margin:0 auto 1rem;">Until then...</h2>
+    <p class="lede reveal" style="margin:0 auto;">I'll be here.</p>
+    <p class="lede reveal" style="margin:.3rem auto 0;">One message at a time. One conversation at a time. One day at a time.</p>
+    <div class="final-code reveal">while (weKeepTalking) {<br>&nbsp;&nbsp;keepGettingToKnowYou();<br>}</div>
+    <p class="signature reveal" id="signatureLine">— From your favorite programmer</p>
+    <p class="easter-egg reveal">status: online · connection: strong · distance: unfortunately large · feelings: still loading...</p>
+    <p class="easter-egg reveal">git commit -m "takot sa commitment pero para sayo magiging handa ako"</p>
+  </section>
+
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Memory preview">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+  <div class="lightbox-inner" id="lightboxInner"></div>
+</div>
+
+<audio id="bgMusic" loop preload="none"></audio>
+
+<!-- config.js must load before main.js — main.js reads siteConfig/traits/timeline/promises/gallery from it -->
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
