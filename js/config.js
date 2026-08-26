@@ -9,7 +9,7 @@ const siteConfig = {
   signature: "Choy",
   relationshipStart: "the night we started talking",
 
-  musicFile: "assets/audio/song.emp3.MP3",
+  musicFile: "assets/audio/song.emp3.mp3",
 
   rememberAnswerLocally: true,
 
