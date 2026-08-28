@@ -24,11 +24,11 @@ const traits = [
   { icon: "04 · details",     title: "Your Little Things",text: "Sometimes it's not the big things. It's the small details that make someone special." }
 ];
 
-const timeline = [
-  { day: "Day 01", text: "We started talking sa tiktok as if matagal na tayo magkakilala." },
-  { day: "Day 05", text: "Our conversations started getting longer. Alam kung na may nararamdaman na ako para sayo pero deadma lang ako" },
-  { day: "Day 10", text: "I caught myself smiling at my phone. Para akong ewan hahahah ang saya ko pag kausap kita" },
-  { day: "Day 15", text: "I realized... I actually really like talking to you. Kaya nag confess ako sayo kahit d ako sure kung e reciprocate mo yung feeling ko" }
+const estimated timeline = [
+  { day: "Day 01", text: "We started talking sa tiktok as if matagal na tayo magkakilala. Nangupal agad ako sayo HAHAHAH" },
+  { day: "Day 05", text: "Our conversations started getting longer. Alam kung na may nararamdaman na ako para sayo pero deadma lang ako at pinagmumura pa kita. I'm sorry babyyy" },
+  { day: "Day 10", text: "I caught myself smiling at my phone. Para akong ewan hahahah wala ang saya ko pag kausap kita buang talaga" },
+  { day: "Day 15", text: "I realized... Na gusto kita. Kaya nag confess ako sayo kahit d ako sure kung e reciprocate mo yung feelings ko. Nag take a risk si choy" }
 ];
 
 const promises = [
