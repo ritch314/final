@@ -24,7 +24,7 @@ const traits = [
   { icon: "04 · details",     title: "Your Little Things",text: "Sometimes it's not the big things. It's the small details that make someone special." }
 ];
 
-const estimated timeline = [
+const timeline = [
   { day: "Day 01", text: "We started talking sa tiktok as if matagal na tayo magkakilala. Nangupal agad ako sayo HAHAHAH" },
   { day: "Day 05", text: "Our conversations started getting longer. Alam kung na may nararamdaman na ako para sayo pero deadma lang ako at pinagmumura pa kita. I'm sorry babyyy" },
   { day: "Day 10", text: "I caught myself smiling at my phone. Para akong ewan hahahah wala ang saya ko pag kausap kita buang talaga" },
