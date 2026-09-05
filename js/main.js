@@ -1,9 +1,4 @@
-/* ==================================================================
-   MAIN SITE LOGIC
-   Reads personalization data from config.js (loaded before this file
-   in index.html). You shouldn't need to edit this file to personalize
-   the site — see config.js instead.
-   ================================================================== */
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -23,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loaderBar = document.getElementById('loaderBar');
   const loaderPct = document.getElementById('loaderPct');
   const loaderGreet = document.getElementById('loaderGreet');
-  const steps = ["Initializing something special...", "Loading memories...", "Loading courage...", "Loading feelings...", "Compiling confession..."];
+  const steps = ["Getting everything ready...", "Gathering a month of moments...", "Loading courage...", "Almost there...", "Finalizing what I want to say..."];
   let i = 0;
   const printedLines = [];
 
@@ -155,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '  }',
       '',
       '  getStatus() {',
-      '    <span class="tok-kw">return</span> <span class="tok-str">"I really like you."</span>;',
+      '    <span class="tok-kw">return</span> <span class="tok-str">"I really like you langga."</span>;',
       '  }',
       '',
       '  nextStep() {',
@@ -166,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '<span class="tok-kw">const</span> feelings = <span class="tok-kw">new</span> <span class="tok-fn">Feelings</span>();',
       'console.<span class="tok-fn">log</span>(feelings.getStatus());',
       '',
-      '<span class="tok-com">// → I really like you.</span>',
+      '<span class="tok-com">// → I really like you langga.</span>',
       '<span class="tok-com">// Compilation successful. ❤</span>'
     ];
     const obs = new IntersectionObserver((entries)=>{
@@ -217,11 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if(btn.dataset.target === 'true'){
           btn.classList.add('found');
           btn.textContent = '❤';
-          result.textContent = 'You found it! ❤';
+          result.textContent = 'You found it, sure oy?hahhaha okay! ❤';
           result.classList.add('is-in');
           if(!prefersReduced) launchConfetti(area);
           setTimeout(()=>{
-            result.textContent = "Maybe finding this was easy. Figuring out how much I like you wasn't.";
+            result.textContent = "Took a few clicks to find it. Took zero hesitation to like you.";
           }, 1200);
         } else {
           btn.classList.add('miss');
@@ -350,9 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('heroType');
     if(!el) return;
     const phrases = [
-      ' but never far from my mind.',
-      ' — distance is just a bug I plan to fix.',
-      ' who is somehow already home.'
+      ' but never far from my heart.',
+      ' — ddistance is just a bug Im working to fix.',
+      ' who is closer than the distance says.'
     ];
     let p = 0, c = 0, deleting = false;
     function tick(){
