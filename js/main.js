@@ -346,8 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!el) return;
     const phrases = [
       ' but never far from my heart.',
-      ' — ddistance is just a bug Im working to fix.',
-      ' who is closer than the distance says.'
+      ' — distance is just a bug Im working to fix.',
+      ' who is closer than the distance says. Pero duol sa akong heart'
     ];
     let p = 0, c = 0, deleting = false;
     function tick(){
