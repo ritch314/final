@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const displayHerName = siteConfig.herNickname || siteConfig.herName || "you";
@@ -339,24 +337,20 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
   }
 
-  /* ---------------- Typewriter tail after "miles away" ---------------- */
+  /* ---------------- Typewriter tail after "miles away" ----------------
+     Types once, then stops — no infinite loop/backspacing so it
+     doesn't keep moving while someone's trying to read the page. */
   function setupHeroType(){
-    if(prefersReduced) return;
     const el = document.getElementById('heroType');
     if(!el) return;
-    const phrases = [
-      ' but never far from my heart.',
-      ' —distance is just a bug Im working to fix.',
-      ' who is closer than the distance says. Pero duol sa akong heart'
-    ];
-    let p = 0, c = 0, deleting = false;
+    const phrase = ' but never far from my heart.';
+    if(prefersReduced){ el.textContent = phrase; return; }
+    let c = 0;
     function tick(){
-      const word = phrases[p];
-      el.textContent = deleting ? word.slice(0, c--) : word.slice(0, c++);
-      let delay = deleting ? 28 : 55;
-      if(!deleting && c === word.length + 1){ deleting = true; delay = 1800; }
-      else if(deleting && c < 0){ deleting = false; c = 0; p = (p+1) % phrases.length; delay = 500; }
-      setTimeout(tick, delay);
+      el.textContent = phrase.slice(0, c);
+      if(c >= phrase.length){ el.classList.add('done-typing'); return; }
+      c++;
+      setTimeout(tick, 55);
     }
     setTimeout(tick, 900);
   }
