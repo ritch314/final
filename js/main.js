@@ -65,6 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMusic();
     setupProgressRail();
     restoreSavedAnswer();
+    setupHeroType();
+    setupTilt();
+    setupRipples();
+    setupHeroParallax();
+    setupCursorHearts();
     if(!prefersReduced) setupParticles();
   }
 
@@ -107,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('galleryGrid');
     grid.innerHTML = gallery.map((g, idx) => `
       <figure class="gallery-item reveal" data-idx="${idx}" tabindex="0" role="button" aria-label="Open memory: ${g.caption}">
-        ${g.img ? `<img src="${g.img}" alt="${g.caption}">` : `<div class="ph" style="background:${gradients[idx % gradients.length]}">${g.caption}</div>`}
+        ${g.img ? `<img src="${g.img}" alt="${g.caption}" onerror="this.closest('.gallery-item').classList.add('img-fallback')">` : `<div class="ph" style="background:${gradients[idx % gradients.length]}">${g.caption}</div>`}
         <figcaption>${g.caption}</figcaption>
       </figure>`).join('');
     grid.querySelectorAll('.gallery-item').forEach(el=>{
@@ -205,18 +210,22 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = '♡';
       btn.style.left = (6 + Math.random()*86) + '%';
       btn.style.top = (10 + Math.random()*76) + '%';
+      btn.style.setProperty('--spin', (Math.random()*16 - 8) + 'deg');
+      btn.style.setProperty('--delay', (Math.random()*2).toFixed(2) + 's');
       if(n === foundIdx) btn.dataset.target = 'true';
       btn.addEventListener('click', () => {
         if(btn.dataset.target === 'true'){
           btn.classList.add('found');
           btn.textContent = '❤';
           result.textContent = 'You found it! ❤';
+          result.classList.add('is-in');
+          if(!prefersReduced) launchConfetti(area);
           setTimeout(()=>{
             result.textContent = "Maybe finding this was easy. Figuring out how much I like you wasn't.";
           }, 1200);
         } else {
-          btn.style.transform = 'scale(0.8)';
-          setTimeout(()=>{ btn.style.transform=''; }, 200);
+          btn.classList.add('miss');
+          setTimeout(()=>{ btn.classList.remove('miss'); }, 220);
         }
       });
       area.appendChild(btn);
@@ -277,21 +286,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }catch(e){ /* ignore */ }
   }
 
-  function launchConfetti(){
+  function launchConfetti(container){
     const colors = ['#ff8fb3','#a48bfb','#62d6c4','#ffffff'];
+    const useViewport = !container;
+    const rect = container ? container.getBoundingClientRect() : null;
     for(let n=0;n<48;n++){
       const p = document.createElement('div');
       p.className = 'confetti-piece';
       const size = 5 + Math.random()*6;
       p.style.width = size+'px'; p.style.height = size+'px';
-      p.style.left = Math.random()*100+'vw';
+      p.style.left = (useViewport ? Math.random()*100+'vw' : (rect.left + Math.random()*rect.width)+'px');
+      p.style.top = useViewport ? '-10px' : (rect.top + window.scrollY + rect.height*0.3)+'px';
       p.style.background = colors[Math.floor(Math.random()*colors.length)];
       p.style.opacity = 0.85;
       document.body.appendChild(p);
       const duration = 2200 + Math.random()*1400;
+      const travel = useViewport ? window.innerHeight+40 : 260 + Math.random()*160;
       p.animate([
         { transform:`translateY(0) rotate(0deg)`, opacity:0.9 },
-        { transform:`translateY(${window.innerHeight+40}px) rotate(${360+Math.random()*360}deg)`, opacity:0.2 }
+        { transform:`translateY(${travel}px) rotate(${360+Math.random()*360}deg)`, opacity:0.2 }
       ], { duration, easing:'cubic-bezier(.2,.6,.4,1)' }).onfinish = () => p.remove();
     }
   }
@@ -311,6 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       on = !on;
       btn.setAttribute('aria-pressed', String(on));
+      btn.classList.toggle('playing', on);
       label.textContent = 'Music: ' + (on ? 'ON' : 'OFF');
       if(on){ audio.play().catch(()=>{ /* playback needs a user gesture — this click provides it */ }); }
       else { audio.pause(); }
@@ -328,6 +342,93 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, { threshold:0.5 });
     sections.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
+  }
+
+  /* ---------------- Typewriter tail after "miles away" ---------------- */
+  function setupHeroType(){
+    if(prefersReduced) return;
+    const el = document.getElementById('heroType');
+    if(!el) return;
+    const phrases = [
+      ' but never far from my mind.',
+      ' — distance is just a bug I plan to fix.',
+      ' who is somehow already home.'
+    ];
+    let p = 0, c = 0, deleting = false;
+    function tick(){
+      const word = phrases[p];
+      el.textContent = deleting ? word.slice(0, c--) : word.slice(0, c++);
+      let delay = deleting ? 28 : 55;
+      if(!deleting && c === word.length + 1){ deleting = true; delay = 1800; }
+      else if(deleting && c < 0){ deleting = false; c = 0; p = (p+1) % phrases.length; delay = 500; }
+      setTimeout(tick, delay);
+    }
+    setTimeout(tick, 900);
+  }
+
+  /* ---------------- Gentle pointer tilt on cards ---------------- */
+  function setupTilt(){
+    if(prefersReduced || matchMedia('(hover:hover)').matches === false) return;
+    document.querySelectorAll('.trait-card, .promise-card').forEach(card=>{
+      card.addEventListener('mousemove', e=>{
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left)/r.width - 0.5;
+        const y = (e.clientY - r.top)/r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', ()=>{ card.style.transform = ''; });
+    });
+  }
+
+  /* ---------------- Ripple on buttons ---------------- */
+  function setupRipples(){
+    document.querySelectorAll('.btn').forEach(btn=>{
+      btn.addEventListener('click', function(e){
+        const r = document.createElement('span');
+        r.className = 'ripple';
+        const rect = this.getBoundingClientRect();
+        r.style.left = (e.clientX - rect.left) + 'px';
+        r.style.top = (e.clientY - rect.top) + 'px';
+        this.appendChild(r);
+        r.addEventListener('animationend', ()=> r.remove());
+      });
+    });
+  }
+
+  /* ---------------- Hero code block subtle parallax on scroll ---------------- */
+  function setupHeroParallax(){
+    if(prefersReduced) return;
+    const code = document.querySelector('.hero-code');
+    if(!code) return;
+    window.addEventListener('scroll', ()=>{
+      const y = window.scrollY;
+      if(y < window.innerHeight){
+        code.style.transform = `translateY(${y*0.15}px)`;
+        code.style.opacity = Math.max(0, 1 - y/500);
+      }
+    }, { passive:true });
+  }
+
+  /* ---------------- Tiny heart trail near the cursor (rare, sparse) ---------------- */
+  function setupCursorHearts(){
+    if(prefersReduced || matchMedia('(hover:hover)').matches === false) return;
+    let last = 0;
+    document.addEventListener('mousemove', (e)=>{
+      const now = performance.now();
+      if(now - last < 260) return;
+      if(Math.random() > 0.12) return;
+      last = now;
+      const h = document.createElement('span');
+      h.className = 'cursor-heart';
+      h.textContent = '♡';
+      h.style.left = e.clientX + 'px';
+      h.style.top = e.clientY + 'px';
+      document.body.appendChild(h);
+      h.animate([
+        { transform:'translateY(0) scale(1)', opacity:0.8 },
+        { transform:'translateY(-40px) scale(0.6)', opacity:0 }
+      ], { duration:900, easing:'ease-out' }).onfinish = () => h.remove();
+    });
   }
 
   function setupParticles(){
